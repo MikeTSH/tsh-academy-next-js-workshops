@@ -1,31 +1,21 @@
-import { GetServerSidePropsContext, NextPage } from 'next';
-import { Profile, ProfileProps } from '../src/components/page/Profile/Profile';
-import { getSession } from 'next-auth/react';
-import { getMe } from '../src/lib/getMe';
+import { NextPage } from 'next';
+import { useSession } from 'next-auth/react';
 
-const ProfilePage: NextPage<ProfileProps> = ({ user }) => {
-  return <Profile user={user} />;
-};
+const ProfilePage: NextPage = () => {
+  const { data, status } = useSession();
 
-export const getServerSideProps = async ({ req }: GetServerSidePropsContext) => {
-  const session = await getSession({ req });
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: `/api/auth/signin?callbackUrl=${encodeURIComponent(req.url!)}`,
-        permanent: false,
-      },
-    };
-  }
-
-  const user = await getMe({ args: { token: session.apiToken as string } });
-
-  return {
-    props: {
-      user,
-    },
-  };
+  return (
+    <pre>
+      {JSON.stringify(
+        {
+          status,
+          data,
+        },
+        null,
+        2,
+      )}
+    </pre>
+  );
 };
 
 export default ProfilePage;
