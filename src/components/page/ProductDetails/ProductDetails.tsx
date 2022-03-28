@@ -23,7 +23,7 @@ export const ProductDetails = ({ product, relatedProducts }: ProductDetailsProps
     <Box sx={styles.productPage}>
       <Box sx={styles.productDetails}>
         <Box sx={styles.productPhoto}>
-          <Image src={product.image} alt={product.title} key={product.image} priority={true} />
+          <Image src={product.image} alt={product.title} key={product.image} sizes={'888px'} />
         </Box>
         <Box sx={styles.productInfo}>
           <Box sx={styles.productTextsArea}>

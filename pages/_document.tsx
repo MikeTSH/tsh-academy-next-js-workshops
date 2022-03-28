@@ -8,6 +8,8 @@ export default class MyDocument extends Document<{ emotionStyleTags: ReactNode[]
     return (
       <Html lang="en">
         <Head>
+          {/* TODO[PERF-1]: Optimize font */}
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
           <link rel="icon" type="image/png" href="/favicon.ico" sizes="32x32" />
           {this.props.emotionStyleTags}
         </Head>

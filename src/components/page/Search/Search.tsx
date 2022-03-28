@@ -7,7 +7,6 @@ import { ProductTile } from '../../shared/ProductTile/ProductTile';
 import { useProducts } from '../../../hooks/useProducts';
 import { SearchFilters } from '../../shared/SearchFilters/SearchFilters';
 import { SearchHeader } from '../../shared/SearchHeader/SearchHeader';
-import { AdBanner } from '../../shared/AdBanner/AdBanner';
 import { SearchCriteria } from '../../../types/criteria';
 import { debounce } from '../../../lib/debounce';
 import { styles } from './Search.styles';
@@ -43,7 +42,6 @@ export const Search = ({ categories, criteria, products }: SearchProps) => {
 
   return (
     <Box sx={styles.searchPage}>
-      <AdBanner />
       <Box sx={styles.searchWrapper}>
         <SearchFilters categories={categories} price={criteria.price} onAttributeChange={handleAttributeChange} />
         <Box sx={styles.searchHeaderWrapper}>

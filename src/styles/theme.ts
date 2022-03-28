@@ -16,13 +16,8 @@ const theme = createTheme({
   },
   components: {
     MuiCssBaseline: {
-      styleOverrides: `
-        @font-face {
-          font-family: "Roboto";
-          src: url(/fonts/Roboto.woff2) format("woff2 supports variations"), url(/fonts/Roboto.woff2) format("woff2-variations");
-          font-weight: 100 900;
-          font-display: swap;
-        }`,
+      // TODO[PERF-1]: Optimize font
+      styleOverrides: ``,
     },
   },
 });

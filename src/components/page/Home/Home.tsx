@@ -19,7 +19,7 @@ export const Home = ({ topProducts }: HomeProps) => {
     <Box sx={styles.homeWrapper}>
       <Box sx={styles.bannerContainer}>
         <Box sx={styles.bannerPhoto}>
-          <Image src="/homepage-banner.jpg" alt="Awesome store" priority={true} />
+          <Image src="/homepage-banner.jpg" alt="Awesome store" sizes={'768px'} />
         </Box>
         <Box sx={styles.bannerContent}>
           <Typography variant="h3" textAlign="left" fontWeight="500">

@@ -1,35 +1,15 @@
-import React, { HTMLAttributes, useState } from 'react';
-import { default as NextImage, ImageProps as NextImageProps } from 'next/image';
-import { ImagePlaceholder } from './imagePlaceholder/ImagePlaceholder';
+import React from 'react';
+import NextImage from 'next/image';
 
-type ImageOwnProps = HTMLAttributes<HTMLImageElement> & {
-  fallback?: string;
+export type ImageProps = {
+  src: string;
+  alt: string;
+  sizes: string;
 };
 
-export type ImageProps = NextImageProps & ImageOwnProps;
-
-export const Image = ({ src, fallback, ...rest }: ImageProps) => {
-  const [imgSrc, setImgSrc] = useState(src);
-  const [hasError, setHasError] = useState(false);
-
-  if (hasError && !fallback) {
-    return <ImagePlaceholder />;
-  }
-
-  const onError = (error: object) => {
-    if (error) {
-      setHasError(true);
-
-      if (fallback) {
-        setImgSrc(fallback);
-      }
-    }
-  };
-
-  return <NextImage {...rest} src={imgSrc as string} onError={onError} />;
-};
-
-Image.defaultProps = {
-  layout: 'fill',
-  objectFit: 'contain',
+export const Image = ({ src, alt, sizes }: ImageProps) => {
+  // TODO[PERF-2]: Optimize images
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src={src} alt={alt} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />;
+  // return <NextImage src={src} alt={alt} sizes={sizes} layout={'fill'} objectFit={'contain'} />;
 };

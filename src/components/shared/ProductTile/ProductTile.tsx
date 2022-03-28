@@ -21,13 +21,7 @@ export const ProductTile = ({ product, productKey }: ItemTileProps) => {
     <Card sx={styles.productCard}>
       <Link href={routing.product(product.id)} sx={styles.productCardWrapper}>
         <Box sx={styles.productCardImage}>
-          <Image
-            src={product.image}
-            alt={product.title}
-            objectFit="contain"
-            priority={typeof productKey !== 'undefined' ? productKey <= 2 : undefined}
-            sizes="332px"
-          />
+          <Image src={product.image} alt={product.title} sizes={'503px'} />
         </Box>
       </Link>
       <CardContent sx={styles.productCardContent}>

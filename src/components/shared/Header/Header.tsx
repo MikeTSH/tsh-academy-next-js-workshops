@@ -14,12 +14,14 @@ import { routing } from '../../../lib/routing';
 import { styles } from './Header.styles';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { Link } from 'components/ui/Link';
+import { LoginModal } from '../LoginModal/LoginModal';
 
 export const Header = () => {
   const router = useRouter();
   const [category, setCategory] = useState(
     Array.isArray(router.query.category) ? router.query.category[0] : router.query.category,
   );
+  const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const { data: categories } = useCategories();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -29,6 +31,15 @@ export const Header = () => {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLoginClick = () => {
+    setLoginModalOpen(true);
+    handleMenuClose();
+  };
+
+  const handleLoginModalClose = () => {
+    setLoginModalOpen(false);
   };
 
   const onSelectCategory = (event: React.SyntheticEvent<Element, Event>, category: string | string[] | null) => {
@@ -46,6 +57,8 @@ export const Header = () => {
 
   return (
     <>
+      {/* TODO[PERF-3]: Code splitting */}
+      <LoginModal isOpen={isLoginModalOpen} handleClose={handleLoginModalClose} />
       <AppBar position="static" sx={styles.appBar}>
         <Toolbar sx={styles.headerToolbar}>
           <Link href={routing.homepage} sx={styles.logoLink}>
@@ -102,13 +115,7 @@ export const Header = () => {
                   </MenuItem>
                 </div>
               ) : (
-                <MenuItem
-                  onClick={() => {
-                    void signIn();
-                  }}
-                >
-                  Login
-                </MenuItem>
+                <MenuItem onClick={handleLoginClick}>Login</MenuItem>
               )}
             </Menu>
           </Box>

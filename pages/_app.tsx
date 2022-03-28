@@ -8,8 +8,6 @@ import { CacheProvider, EmotionCache } from '@emotion/react';
 import theme from '../src/styles/theme';
 import createEmotionCache from '../src/styles/createEmotionCache';
 import { Layout } from '../src/components/shared/Layout/Layout';
-import { ReCaptchaScript } from '../src/components/shared/Scripts/ReCaptcha';
-import { RobotoFont } from '../src/components/shared/Scripts/Roboto';
 import { SessionProvider } from 'next-auth/react';
 
 // Client-side cache, shared for the whole session of the user in the browser.
@@ -29,8 +27,6 @@ export default function MyApp({
       <CacheProvider value={emotionCache}>
         <Head>
           <meta name="viewport" content="initial-scale=1, width=device-width" />
-          <RobotoFont />
-          <ReCaptchaScript />
         </Head>
         <ThemeProvider theme={theme}>
           <CssBaseline />
