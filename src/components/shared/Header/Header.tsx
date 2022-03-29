@@ -9,7 +9,7 @@ import { Autocomplete, TextField } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { useRouter } from 'next/router';
-import { signIn } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import { useCategories } from '../../../hooks/useCategories';
 import { routing } from '../../../lib/routing';
 import { styles } from './Header.styles';
@@ -48,6 +48,8 @@ export const Header = () => {
       setCategory(category);
     }
   };
+
+  const { status: userSessionStatus } = useSession();
 
   useEffect(() => {
     setCategory(Array.isArray(router.query.category) ? router.query.category[0] : router.query.category);
@@ -99,7 +101,28 @@ export const Header = () => {
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
             >
-              <MenuItem onClick={() => void signIn()}>Login</MenuItem>
+              {userSessionStatus === 'authenticated' ? (
+                <div>
+                  <Link href="/profile">
+                    <MenuItem>Profile</MenuItem>
+                  </Link>
+                  <MenuItem
+                    onClick={() => {
+                      void signOut({ callbackUrl: '/' });
+                    }}
+                  >
+                    Log out
+                  </MenuItem>
+                </div>
+              ) : (
+                <MenuItem
+                  onClick={() => {
+                    void signIn();
+                  }}
+                >
+                  Login
+                </MenuItem>
+              )}
             </Menu>
           </Box>
         </Toolbar>
