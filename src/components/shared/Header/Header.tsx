@@ -12,7 +12,6 @@ import { useRouter } from 'next/router';
 import { useCategories } from '../../../hooks/useCategories';
 import { routing } from '../../../lib/routing';
 import { styles } from './Header.styles';
-import { signIn, signOut, useSession } from 'next-auth/react';
 import { Link } from 'components/ui/Link';
 import { LoginModal } from '../LoginModal/LoginModal';
 
@@ -48,8 +47,6 @@ export const Header = () => {
       setCategory(category);
     }
   };
-
-  const { status: userSessionStatus } = useSession();
 
   useEffect(() => {
     setCategory(Array.isArray(router.query.category) ? router.query.category[0] : router.query.category);
@@ -101,22 +98,7 @@ export const Header = () => {
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
             >
-              {userSessionStatus === 'authenticated' ? (
-                <div>
-                  <Link href="/profile">
-                    <MenuItem>Profile</MenuItem>
-                  </Link>
-                  <MenuItem
-                    onClick={() => {
-                      void signOut({ callbackUrl: '/' });
-                    }}
-                  >
-                    Log out
-                  </MenuItem>
-                </div>
-              ) : (
-                <MenuItem onClick={handleLoginClick}>Login</MenuItem>
-              )}
+              <MenuItem onClick={handleLoginClick}>Login</MenuItem>
             </Menu>
           </Box>
         </Toolbar>
