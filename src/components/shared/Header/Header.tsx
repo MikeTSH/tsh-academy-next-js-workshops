@@ -9,6 +9,7 @@ import { Autocomplete, TextField } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { useRouter } from 'next/router';
+import { signIn } from 'next-auth/react';
 import { useCategories } from '../../../hooks/useCategories';
 import { routing } from '../../../lib/routing';
 import { styles } from './Header.styles';
@@ -98,7 +99,7 @@ export const Header = () => {
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
             >
-              <MenuItem onClick={handleLoginClick}>Login</MenuItem>
+              <MenuItem onClick={() => void signIn()}>Login</MenuItem>
             </Menu>
           </Box>
         </Toolbar>
